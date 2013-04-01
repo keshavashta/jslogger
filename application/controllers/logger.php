@@ -8,7 +8,7 @@
  */
 class Logger_Controller extends Base_Controller
 {
-
+    public $restful = true;
     private $userRepo;
     private $projectRepo;
     private $exceptionLogRepo;
@@ -21,35 +21,8 @@ class Logger_Controller extends Base_Controller
         $this->exceptionLogRepo = new ExceptionLogRepository();
     }
 
-    public $restful = true;
-
-    public function post_log()
-    {
-
-        $data = Input::json();
-
-        if (empty($data->project_key))
-            return false;
-        //TODO: add validation
-
-        $projectId = $this->projectRepo->getProjectId($data->project_key);
-        $message = $data->message;
-        $error_type = $data->error_type;
-        $file_name = $data->file_name;
-        $line = $data->line;
-        $date = new DateTime($data->date);
-        $priority = $data->priority;
-        $ip = Request::ip();
-        $exceptionLogRepo = new ExceptionLogRepository();
-        $exceptionLog = $exceptionLogRepo->insertLog($projectId, $message, $error_type, $file_name, $line, $date, $priority, $ip);
-        return Response::Eloquent($exceptionLog);
-
-
-    }
-
     public function get_log_exception()
     {
-
 
         $data = Input::all();
         if (empty($data['project_key']))
@@ -67,20 +40,13 @@ class Logger_Controller extends Base_Controller
         $exceptionLogRepo = new ExceptionLogRepository();
         $exceptionLog = $exceptionLogRepo->insertLog($projectId, $message, $error_type, $file_name, $line, $date, $priority, $ip);
         $jsonResponse = "{\"message\":\"" . $message . "\"}";
-        echo $callback . "(" . $jsonResponse . ")";
-
-
-    }
-
-    public function post_log_exception()
-    {
+        return Response::make($callback . "(" . $jsonResponse . ")", 200, array('content-type' => 'application/javascript'));
 
     }
 
-    public function get_log()
+    public function get_get($key)
     {
-        $key = Input::get("key");
-        return View::make("home.log")->with("key", $key);
-        //test
+        $throwError = Input::get("t");
+        return Response::make(View::make("logger.log")->with(array('key' => $key, 'throwError' => $throwError)), 200, array('content-type' => 'application/javascript'));
     }
 }
