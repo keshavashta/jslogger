@@ -23,7 +23,10 @@
 
 $environments = array(
 
-	'local' => array('http://localhost*', '*.dev'),
+
+        'local' => array('http://jslogger.locahost.com'),
+        'testing' => array('keshav-pc'),
+        'home'=>array('http://js-logger.locahost.com'),
 
 );
 

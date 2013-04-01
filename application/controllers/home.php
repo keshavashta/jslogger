@@ -31,9 +31,9 @@ class Home_Controller extends Base_Controller
     |
     */
 
-    public function action_get($key)
+    public function action_index()
     {
-        return View::make('home.test')->with("key",$key);
+        return View::make('layouts.common');
     }
 
     public function action_test()
