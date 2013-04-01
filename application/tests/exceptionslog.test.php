@@ -55,9 +55,9 @@ class ExceptionsLogTest extends PHPUnit_Framework_TestCase
 
         Input::$json = (object)$data;
 
-        Request::setMethod('POST');
+        Request::setMethod('GET');
 
-        $response = Controller::call('logger@log');
+        $response = Controller::call('logger@log_exception');
 
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
