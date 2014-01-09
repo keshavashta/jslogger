@@ -31,4 +31,10 @@ class ExceptionLogRepository
         return $exception_log;
 
     }
+
+    public function getLogs($projectId)
+    {
+        $result = DB::table("exception_logs")->where("project_id", "", $projectId)->get();
+        return $result;
+    }
 }

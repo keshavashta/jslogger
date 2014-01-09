@@ -9,6 +9,7 @@ class Base_Controller extends Controller {
 	 * @param  array     $parameters
 	 * @return Response
 	 */
+//    public $layout = 'layouts.common';
 	public function __call($method, $parameters)
 	{
 		return Response::error('404');

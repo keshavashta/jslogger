@@ -21,6 +21,15 @@ class Logger_Controller extends Base_Controller
         $this->exceptionLogRepo = new ExceptionLogRepository();
     }
 
+    public function get_logs()
+    {
+
+        $data = $data = Input::all();
+        if (empty($data['project_key']))
+            return false;
+
+    }
+
     public function get_log_exception()
     {
 
